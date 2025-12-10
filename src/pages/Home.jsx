@@ -29,6 +29,24 @@ export default function Home() {
     <div style={{ padding: "20px", color: "white" }}>
       <h1>Anime Library</h1>
 
+      <a
+  href="/add"
+  style={{
+    display: "inline-block",
+    padding: "10px 15px",
+    background: "#00aaff",
+    color: "black",
+    borderRadius: "8px",
+    fontWeight: "bold",
+    marginBottom: "20px",
+    textDecoration: "none",
+    cursor: "pointer"
+  }}
+>
+  + Add Anime
+</a>
+
+
       {/* 🔍 SEARCH BAR */}
       <input
         type="text"
