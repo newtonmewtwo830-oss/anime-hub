@@ -1,16 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import AddAnime from "./pages/AddAnime";
-import Watch from "./pages/Watch"; // <-- YOU MISSED THIS LINE
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/add" element={<AddAnime />} />
-        <Route path="/watch" element={<Watch />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
