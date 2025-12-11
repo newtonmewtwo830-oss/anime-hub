@@ -5,7 +5,7 @@ import { db } from "../firebase";
 export default function Home() {
   const [anime, setAnime] = useState([]);
   const [search, setSearch] = useState("");
-  const [selectedTag, setSelectedTag] = useState(null); // ⭐ correctly placed
+  const [selectedTag, setSelectedTag] = useState(null);
 
   useEffect(() => {
     const load = async () => {
@@ -15,57 +15,71 @@ export default function Home() {
     load();
   }, []);
 
-  // ⭐ FILTER WITH SEARCH + TAG
   const filtered = anime.filter(a => {
     const matchesSearch = a.title.toLowerCase().includes(search.toLowerCase());
     const matchesTag = selectedTag ? (a.tags || []).includes(selectedTag) : true;
     return matchesSearch && matchesTag;
   });
 
-  // ⭐ Collect unique tags from ALL anime
   const allTags = [...new Set(anime.flatMap(a => a.tags || []))];
 
   return (
-    <div style={{ padding: "20px", color: "white" }}>
-      <h1>Anime Library</h1>
+    <div 
+      style={{
+        maxWidth: "1000px",
+        margin: "auto",
+        padding: "40px 20px",
+        color: "white"
+      }}
+    >
+      <h1 style={{ marginBottom: "20px", fontSize: "40px" }}>
+        Anime Library
+      </h1>
 
-      <a
-  href="/add"
-  style={{
-    display: "inline-block",
-    padding: "10px 15px",
-    background: "#00aaff",
-    color: "black",
-    borderRadius: "8px",
-    fontWeight: "bold",
-    marginBottom: "20px",
-    textDecoration: "none",
-    cursor: "pointer"
-  }}
->
-  + Add Anime
-</a>
+      {/* 🟦 Add Anime + Search */}
+      <div style={{ display: "flex", gap: "15px", marginBottom: "25px" }}>
+        <a
+          href="/add"
+          style={{
+            padding: "10px 18px",
+            background: "#00aaff",
+            color: "black",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textDecoration: "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          + Add Anime
+        </a>
 
+        <input
+          type="text"
+          placeholder="Search anime..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          style={{
+            padding: "10px",
+            flex: 1,
+            borderRadius: "8px",
+            border: "none",
+            outline: "none",
+            background: "#222",
+            color: "white"
+          }}
+        />
+      </div>
 
-      {/* 🔍 SEARCH BAR */}
-      <input
-        type="text"
-        placeholder="Search anime..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+      {/* 🏷 TAG FILTERS */}
+      <div
         style={{
-          padding: "10px",
-          width: "300px",
-          borderRadius: "8px",
-          border: "none",
+          display: "flex",
+          gap: "10px",
+          flexWrap: "wrap",
           marginBottom: "20px",
-          outline: "none",
         }}
-      />
-
-      {/* ⭐ TAG FILTER BAR */}
-      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
-        {allTags.map(tag => (
+      >
+        {allTags.map((tag) => (
           <button
             key={tag}
             onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
@@ -83,27 +97,27 @@ export default function Home() {
         ))}
       </div>
 
-      {/* ⭐ ANIME CARDS */}
+      {/* 🎴 ANIME CARDS */}
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {filtered.map(a => (
-<div
-  key={a.id}
-  style={{
-    width: "200px",
-    borderRadius: "10px",
-    padding: "5px",
-    transition: "transform 0.25s ease, box-shadow 0.25s ease",
-    cursor: "pointer",
-  }}
-  onMouseEnter={(e) => {
-    e.currentTarget.style.transform = "scale(1.05)";
-    e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.4)";
-  }}
-  onMouseLeave={(e) => {
-    e.currentTarget.style.transform = "scale(1)";
-    e.currentTarget.style.boxShadow = "none";
-  }}
->            <img
+        {filtered.map((a) => (
+          <div
+            key={a.id}
+            style={{
+              width: "200px",
+              borderRadius: "10px",
+              padding: "5px",
+              transition: "transform 0.25s ease, box-shadow 0.25s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = "scale(1.05)";
+              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.4)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = "scale(1)";
+              e.currentTarget.style.boxShadow = "none";
+            }}
+          >
+            <img
               src={a.thumbnail}
               width="200"
               style={{ borderRadius: "10px" }}
@@ -113,9 +127,16 @@ export default function Home() {
               {a.title}
             </h3>
 
-            {/* ⭐ TAGS DISPLAY */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "10px" }}>
-              {(a.tags || []).map(tag => (
+            {/* Mini tags */}
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+                marginBottom: "10px",
+              }}
+            >
+              {(a.tags || []).map((tag) => (
                 <span
                   key={tag}
                   onClick={() => setSelectedTag(tag)}
@@ -142,4 +163,3 @@ export default function Home() {
     </div>
   );
 }
-
