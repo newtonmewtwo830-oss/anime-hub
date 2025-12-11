@@ -24,19 +24,19 @@ export default function Home() {
   const allTags = [...new Set(anime.flatMap(a => a.tags || []))];
 
   return (
-    <div 
+    <div
       style={{
         maxWidth: "1000px",
         margin: "auto",
         padding: "40px 20px",
-        color: "white"
+        color: "white",
       }}
     >
       <h1 style={{ marginBottom: "20px", fontSize: "40px" }}>
         Anime Library
       </h1>
 
-      {/* 🟦 Add Anime + Search */}
+      {/* TOP BAR */}
       <div style={{ display: "flex", gap: "15px", marginBottom: "25px" }}>
         <a
           href="/add"
@@ -65,21 +65,14 @@ export default function Home() {
             border: "none",
             outline: "none",
             background: "#222",
-            color: "white"
+            color: "white",
           }}
         />
       </div>
 
-      {/* 🏷 TAG FILTERS */}
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-          flexWrap: "wrap",
-          marginBottom: "20px",
-        }}
-      >
-        {allTags.map((tag) => (
+      {/* TAG BUTTONS */}
+      <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
+        {allTags.map(tag => (
           <button
             key={tag}
             onClick={() => setSelectedTag(tag === selectedTag ? null : tag)}
@@ -97,20 +90,21 @@ export default function Home() {
         ))}
       </div>
 
-      {/* 🎴 ANIME CARDS */}
+      {/* ANIME CARDS */}
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
-        {filtered.map((a) => (
+        {filtered.map(a => (
           <div
             key={a.id}
             style={{
               width: "200px",
               borderRadius: "10px",
               padding: "5px",
-              transition: "transform 0.25s ease, box-shadow 0.25s ease",
+              transition: "transform 0.25s, box-shadow 0.25s",
+              cursor: "pointer",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = "scale(1.05)";
-              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.4)";
+              e.currentTarget.style.boxShadow = "0 8px 20px rgba(0, 0, 0, 0.4)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = "scale(1)";
@@ -127,16 +121,8 @@ export default function Home() {
               {a.title}
             </h3>
 
-            {/* Mini tags */}
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "6px",
-                marginBottom: "10px",
-              }}
-            >
-              {(a.tags || []).map((tag) => (
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "10px" }}>
+              {(a.tags || []).map(tag => (
                 <span
                   key={tag}
                   onClick={() => setSelectedTag(tag)}
