@@ -25,12 +25,14 @@ export default function Home() {
 
   return (
     <div
-      style={{
-        padding: "20px",
-        color: "white",
-        maxWidth: "900px",
-        margin: "0 auto",
-      }}
+  style={{
+    padding: "20px",
+    color: "white",
+    background: "#111",
+    maxWidth: "900px",
+    margin: "0 auto",
+  }}
+>
     >
       <h1 style={{ marginBottom: "10px" }}>Anime Library</h1>
 
