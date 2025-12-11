@@ -26,51 +26,47 @@ export default function Home() {
   return (
     <div
       style={{
-        maxWidth: "1000px",
-        margin: "auto",
-        padding: "40px 20px",
+        padding: "20px",
         color: "white",
+        maxWidth: "900px",
+        margin: "0 auto",
       }}
     >
-      <h1 style={{ marginBottom: "20px", fontSize: "40px" }}>
-        Anime Library
-      </h1>
+      <h1 style={{ marginBottom: "10px" }}>Anime Library</h1>
 
-      {/* TOP BAR */}
-      <div style={{ display: "flex", gap: "15px", marginBottom: "25px" }}>
-        <a
-          href="/add"
-          style={{
-            padding: "10px 18px",
-            background: "#00aaff",
-            color: "black",
-            borderRadius: "8px",
-            fontWeight: "bold",
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-          }}
-        >
-          + Add Anime
-        </a>
+      <a
+        href="/add"
+        style={{
+          display: "inline-block",
+          padding: "10px 15px",
+          background: "#00aaff",
+          color: "black",
+          borderRadius: "8px",
+          fontWeight: "bold",
+          marginBottom: "20px",
+          textDecoration: "none",
+        }}
+      >
+        + Add Anime
+      </a>
 
-        <input
-          type="text"
-          placeholder="Search anime..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: "10px",
-            flex: 1,
-            borderRadius: "8px",
-            border: "none",
-            outline: "none",
-            background: "#222",
-            color: "white",
-          }}
-        />
-      </div>
+      <input
+        type="text"
+        placeholder="Search anime..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "10px",
+          width: "100%",
+          maxWidth: "300px",
+          borderRadius: "8px",
+          border: "none",
+          marginBottom: "20px",
+          outline: "none",
+          display: "block",
+        }}
+      />
 
-      {/* TAG BUTTONS */}
       <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
         {allTags.map(tag => (
           <button
@@ -90,16 +86,15 @@ export default function Home() {
         ))}
       </div>
 
-      {/* ANIME CARDS */}
       <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
         {filtered.map(a => (
           <div
             key={a.id}
             style={{
               width: "200px",
-              borderRadius: "10px",
               padding: "5px",
-              transition: "transform 0.25s, box-shadow 0.25s",
+              borderRadius: "10px",
+              transition: "0.25s",
               cursor: "pointer",
             }}
             onMouseEnter={(e) => {
@@ -111,15 +106,9 @@ export default function Home() {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
-            <img
-              src={a.thumbnail}
-              width="200"
-              style={{ borderRadius: "10px" }}
-            />
+            <img src={a.thumbnail} width="200" style={{ borderRadius: "10px" }} />
 
-            <h3 style={{ marginTop: "10px", marginBottom: "5px" }}>
-              {a.title}
-            </h3>
+            <h3 style={{ marginTop: "10px" }}>{a.title}</h3>
 
             <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginBottom: "10px" }}>
               {(a.tags || []).map(tag => (
